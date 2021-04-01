@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [review_requested, opened, reopened, closed]
   pull_request_review:
-    types: [submitted, dismissed]
+    types: [submitted, dismissed, edited]
 jobs:
   move-ticket:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - name: Youtrack Review
         if: ${{ github.event_name == 'pull_request_review' }}
         run: |
-          echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request_review.pull_request.head.ref }}' '${{ github.event.pull_request_review.review.state }}')"
+          echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request.head.ref }}' '${{ github.event.review.state }}')"
       - name: Debug
         run: |
-          echo "${{ github.event_name }} ${{ github.event.action }} review state: ${{ github.event.pull_request_review.state }} hmm: ${{ github.event.state }}"
+          echo "${{ github.event_name }} ${{ github.event.action }} review state: ${{ github.event.review.state }}"
