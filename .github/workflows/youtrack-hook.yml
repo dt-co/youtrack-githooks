@@ -1,7 +1,7 @@
 name: youtrack-ticket
 on:
   pull_request:
-    types: [review_requested, opened, reopened, closed, ]
+    types: [review_requested, opened, reopened, closed]
   pull_request_review:
     types: [submitted, dismissed]
 jobs:
