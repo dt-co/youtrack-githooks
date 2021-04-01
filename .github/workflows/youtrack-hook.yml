@@ -25,4 +25,4 @@ jobs:
           echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request_review.pull_request.head.ref }}' '${{ github.event.pull_request_review.review.state }}')"
       - name: Debug
         run: |
-          echo "${{ github.event_name }} ${{ github.event.action }}"
+          echo "${{ github.event_name }} ${{ github.event.action }} ${{ github.event.pull_request_review.state }}"
