@@ -1,0 +1,24 @@
+name: youtrack-ticket
+on: [pull_request, pull_request_review]
+jobs:
+  move-ticket:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests
+      - name: Youtrack Pull request
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request.head.ref }}' '${{ github.event.action }}' '${{ github.event.pull_request.merged }}')"
+      - name: Youtrack Review
+        if: ${{ github.event_name == 'pull_request_review' }}
+        run: |
+          echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request_review.pull_request.head.ref }}' '${{ github.event.pull_request_review.review.state }}')"
+      - name: Debug
+        run: |
+          echo "${{ github.event_name }}"
