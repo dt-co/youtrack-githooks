@@ -18,8 +18,10 @@ class YoutrackAPI:
             if state == 'merged':
                 return "state Done"
         if type == 'pull_request_review':
-            if state in ['request_changes']: #approve
+            if state in ['changes_requested']:
                 return "State In Progress"
+            if state in ['approved']:
+                return "state To Verify"
         return 'None'
 
     def post(self, body):
