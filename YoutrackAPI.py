@@ -10,10 +10,10 @@ class YoutrackAPI:
     @staticmethod
     def set_state(state, type):
         state = state.lower()
-        if type == 'pull_request':
-            if state in ['review_requested', 'ready_for_review', 'opened', 'reopened']:
+        if type == 'pull_request': # https://docs.github.com/en/developers/webhooks-and-events/github-event-types#pullrequestevent
+            if state in ['review_requested', 'opened', 'reopened']:
                 return "state To Verify"
-            if state in ['converted_to_draft', 'closed']:
+            if state in ['closed']:
                 return "State In Progress"
             if state == 'merged':
                 return "state Done"
