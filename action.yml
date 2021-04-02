@@ -1,0 +1,11 @@
+name: 'Youtrack issue action'
+description: 'Move issue around on the Youtrack board depending on state within github.'
+outputs:
+  result: # id of output
+    description: 'Result from the python script of gewoon niet'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ YOUTRACK_API_KEY }}
+    - ${{ GITHUB_CONTEXT }}

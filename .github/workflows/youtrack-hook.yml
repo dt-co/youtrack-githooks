@@ -8,21 +8,10 @@ jobs:
   move-ticket:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install requests
-      - name: Youtrack Pull request
-        if: ${{ github.event_name == 'pull_request' }}
-        run: |
-          echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request.head.ref }}' '${{ github.event.action }}' '${{ github.event.pull_request.merged }}')"
-      - name: Youtrack Review
-        if: ${{ github.event_name == 'pull_request_review' }}
-        run: |
-          echo "$(python youtrack-hook.py '${{ github.event_name }}' '${{ github.event.pull_request.head.ref }}' '${{ github.event.review.state }}')"
-      - name: Debug
-        run: |
-          echo "${{ github.event_name }} ${{ github.event.action }} review state: ${{ github.event.review.state }}"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Youtrack action
+        uses: ./ # Uses an action in the root directory
+        env:
+          GITHUB_CONTEXT: ${{ tojson(github) }}
+          YOUTRACK_API_KEY: ${{ secrets.YOUTRACK_API_KEY }}

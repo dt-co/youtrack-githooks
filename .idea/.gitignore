@@ -6,3 +6,6 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+/modules.xml
+/vcs.xml
+/youtrack-githooks.iml
