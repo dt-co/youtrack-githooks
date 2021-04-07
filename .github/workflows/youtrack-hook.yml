@@ -1,0 +1,17 @@
+name: youtrack-ticket
+on:
+  pull_request:
+    types: [review_requested, opened, reopened, closed]
+  pull_request_review:
+    types: [submitted, dismissed, edited]
+jobs:
+  move-ticket:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Youtrack action
+        uses: ./ # Uses an action in the root directory
+        env:
+          GITHUB_CONTEXT: ${{ tojson(github) }}
+          YOUTRACK_API_KEY: ${{ secrets.YOUTRACK_API_KEY }}
