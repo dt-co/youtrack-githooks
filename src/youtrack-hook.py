@@ -11,7 +11,7 @@ issue = data['event']['pull_request']['head']['ref']
 if event_name.lower() == 'pull_request':
     action = data['event']['action']
     merged = data['event']['pull_request']['merged']
-    if action.lower() == 'closed' and merged == true:
+    if action.lower() == 'closed' and (merged == True or merged.lower() == 'true'):
         action = 'merged'
 else:
     action = data['event']['review']['state']
